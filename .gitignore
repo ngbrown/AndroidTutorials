@@ -1,1 +1,7 @@
 .metadata
+
+bin
+libs
+.project
+.classpath
+R.java
