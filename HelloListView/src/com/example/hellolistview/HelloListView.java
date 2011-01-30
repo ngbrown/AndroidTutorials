@@ -23,7 +23,6 @@ public class HelloListView extends ListActivity {
         lv.setTextFilterEnabled(true);
         
         lv.setOnItemClickListener(new OnItemClickListener() {
-			@Override
         	public void onItemClick(AdapterView<?> parent, View view,
         			int position, long id) {
         		// When clicked, show a toast with the TextView text

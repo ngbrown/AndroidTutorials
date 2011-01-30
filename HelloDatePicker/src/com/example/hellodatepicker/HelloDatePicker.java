@@ -22,7 +22,7 @@ public class HelloDatePicker extends Activity {
 	
 	private DatePickerDialog.OnDateSetListener mDateSetListener = 
 		new DatePickerDialog.OnDateSetListener() {
-			@Override
+			
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
 					int dayOfMonth) {
 				mYear = year;
@@ -44,7 +44,7 @@ public class HelloDatePicker extends Activity {
         
         // add a click listener to the button
         mPickDate.setOnClickListener(new View.OnClickListener() {
-			@Override
+			
 			public void onClick(View v) {
 				showDialog(DATE_DIALOG_ID);
 			}
