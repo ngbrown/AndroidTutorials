@@ -13,6 +13,7 @@
         </activity>
 
     </application>
+    <uses-sdk android:targetSdkVersion="7" android:minSdkVersion="7"></uses-sdk>
 
 
 </manifest> 
