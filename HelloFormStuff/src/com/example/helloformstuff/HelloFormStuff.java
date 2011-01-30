@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -35,6 +36,18 @@ public class HelloFormStuff extends Activity {
 					Toast.makeText(HelloFormStuff.this, edittext.getText(), Toast.LENGTH_SHORT).show();
 				}
 				return false;
+			}
+		});
+        
+        final CheckBox checkbox = (CheckBox)findViewById(R.id.checkbox);
+        checkbox.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				// Perform action on clicks, depending on whether, it's now checked
+				if (((CheckBox) v).isChecked()) {
+					Toast.makeText(HelloFormStuff.this, "Selected", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(HelloFormStuff.this, "Not Selected", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
     }
