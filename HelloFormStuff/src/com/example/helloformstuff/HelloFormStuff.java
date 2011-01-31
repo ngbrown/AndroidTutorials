@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -67,6 +69,14 @@ public class HelloFormStuff extends Activity {
 				} else {
 					Toast.makeText(HelloFormStuff.this, "Not Checked", Toast.LENGTH_SHORT).show();
 				}
+			}
+		});
+        
+        final RatingBar ratingbar = (RatingBar)findViewById(R.id.ratingbar);
+        ratingbar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+			public void onRatingChanged(RatingBar ratingBar, float rating,
+					boolean fromUser) {
+				Toast.makeText(HelloFormStuff.this, "New Rating: " + rating, Toast.LENGTH_SHORT).show();
 			}
 		});
     }
