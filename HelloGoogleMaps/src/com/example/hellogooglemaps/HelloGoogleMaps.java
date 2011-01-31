@@ -26,9 +26,13 @@ public class HelloGoogleMaps extends MapActivity {
         HelloItemizedOverlay itemizedoverlay = new HelloItemizedOverlay(drawable, this);
         
         GeoPoint point = new GeoPoint(19240000,-99120000);
-        OverlayItem overlayitem = new OverlayItem(point, "�Hola, Mundo!", "I'm in Mexico City!");
-        
+        OverlayItem overlayitem = new OverlayItem(point, "¡Hola, Mundo!", "I'm in Mexico City!");
         itemizedoverlay.addOverlay(overlayitem);
+        
+        GeoPoint point2 = new GeoPoint(35410000, 139460000);
+        OverlayItem overlayitem2 = new OverlayItem(point2, "世界今日は！", "I'm in Japan!");
+        itemizedoverlay.addOverlay(overlayitem2);
+        
         mapOverlays.add(itemizedoverlay);
     }
 
