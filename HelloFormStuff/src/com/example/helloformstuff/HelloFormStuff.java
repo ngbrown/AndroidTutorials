@@ -8,7 +8,10 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class HelloFormStuff extends Activity {
@@ -50,5 +53,18 @@ public class HelloFormStuff extends Activity {
 				}
 			}
 		});
+        
+        final RadioButton radio_red = (RadioButton)findViewById(R.id.radio_red);
+        final RadioButton radio_blue = (RadioButton)findViewById(R.id.radio_blue);
+        radio_red.setOnClickListener(radio_listener);
+        radio_blue.setOnClickListener(radio_listener);
     }
+    
+    private OnClickListener radio_listener = new OnClickListener() {
+		public void onClick(View v) {
+			// Perform action on clicks
+			RadioButton rb = (RadioButton)v;
+			Toast.makeText(HelloFormStuff.this, rb.getText(), Toast.LENGTH_SHORT).show();
+		}
+	};
 }
