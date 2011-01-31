@@ -8,11 +8,10 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class HelloFormStuff extends Activity {
     /** Called when the activity is first created. */
@@ -58,6 +57,18 @@ public class HelloFormStuff extends Activity {
         final RadioButton radio_blue = (RadioButton)findViewById(R.id.radio_blue);
         radio_red.setOnClickListener(radio_listener);
         radio_blue.setOnClickListener(radio_listener);
+        
+        final ToggleButton togglebutton = (ToggleButton)findViewById(R.id.togglebutton);
+        togglebutton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				// Perform action on clicks
+				if (togglebutton.isChecked()) {
+					Toast.makeText(HelloFormStuff.this, "Checked", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(HelloFormStuff.this, "Not Checked", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
     }
     
     private OnClickListener radio_listener = new OnClickListener() {
