@@ -1,7 +1,4 @@
 .metadata
-
-bin
-libs
-.project
-.classpath
+bin/
+libs/
 R.java
