@@ -2,3 +2,9 @@
 bin/
 libs/
 R.java
+local.properties
+
+out/
+/*/.idea/tasks.xml
+/*/.idea/workspace.xml
+*.iws

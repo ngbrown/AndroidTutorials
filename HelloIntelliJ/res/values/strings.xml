@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HelloIntelliJ</string>
+    <string name="explanation">This simple Android application
+        illustrates the mainstream Android development workflow in IntelliJ IDEA.</string>
+</resources>
