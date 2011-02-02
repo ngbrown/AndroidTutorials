@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -46,6 +47,7 @@ public class Notepadv2 extends ListActivity {
         mDbHelper = new NotesDbAdapter(this);
         mDbHelper.open();
         fillData();
+        registerForContextMenu(getListView());
     }
 
     private void fillData() {
@@ -87,36 +89,60 @@ public class Notepadv2 extends ListActivity {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		
-        // TODO: fill in rest of method
+		menu.add(0, DELETE_ID, 0, R.string.menu_delete);
 	}
 
     @Override
 	public boolean onContextItemSelected(MenuItem item) {
-		return super.onContextItemSelected(item);
-		
-        // TODO: fill in rest of method
+		switch(item.getItemId()) {
+            case DELETE_ID:
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+                mDbHelper.deleteNote(info.id);
+                fillData();
+                return true;
+        }
+        return super.onContextItemSelected(item);
     }
 
     private void createNote() {
-        // TODO: fill in implementation
-
+        Intent i = new Intent(this, NoteEdit.class);
+        startActivityForResult(i, ACTIVITY_CREATE);
     }
     
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
-        // TODO: fill in rest of method
-        
+        Cursor c = mNotesCursor;
+        c.moveToPosition(position);
+        Intent i = new Intent(this, NoteEdit.class);
+        i.putExtra(NotesDbAdapter.KEY_ROWID, id);
+        i.putExtra(NotesDbAdapter.KEY_TITLE, c.getString(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_TITLE)));
+        i.putExtra(NotesDbAdapter.KEY_BODY, c.getString(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_BODY)));
+        startActivityForResult(i, ACTIVITY_EDIT);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+        Bundle extras = intent.getExtras();
 
-        // TODO: fill in rest of method
-
+        switch(requestCode) {
+            case ACTIVITY_CREATE:
+                String title = extras.getString(NotesDbAdapter.KEY_TITLE);
+                String body = extras.getString(NotesDbAdapter.KEY_BODY);
+                mDbHelper.createNote(title, body);
+                fillData();
+                break;
+            case ACTIVITY_EDIT:
+                Long mRowId = extras.getLong(NotesDbAdapter.KEY_ROWID);
+                if(mRowId != null) {
+                    String editTitle = extras.getString(NotesDbAdapter.KEY_TITLE);
+                    String editBody = extras.getString(NotesDbAdapter.KEY_BODY);
+                    mDbHelper.updateNote(mRowId, editTitle, editBody);
+                }
+                fillData();
+                break;
+        }
     }
 
 }
