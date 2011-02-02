@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.android.demo.notepad2;
+package com.android.demo.notepad3;
 
 import android.content.ContentValues;
 import android.content.Context;

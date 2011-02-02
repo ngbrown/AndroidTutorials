@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.demo.notepad2;
+package com.android.demo.notepad3;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -25,11 +25,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class Notepadv2 extends ListActivity {
+public class Notepadv3 extends ListActivity {
     private static final int ACTIVITY_CREATE=0;
     private static final int ACTIVITY_EDIT=1;
     
@@ -70,7 +70,7 @@ public class Notepadv2 extends ListActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.add(0, INSERT_ID,0, R.string.menu_insert);
+        menu.add(0, INSERT_ID, 0, R.string.menu_insert);
         return true;
     }
 
@@ -96,7 +96,7 @@ public class Notepadv2 extends ListActivity {
 	public boolean onContextItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
             case DELETE_ID:
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+                AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
                 mDbHelper.deleteNote(info.id);
                 fillData();
                 return true;
@@ -116,8 +116,10 @@ public class Notepadv2 extends ListActivity {
         c.moveToPosition(position);
         Intent i = new Intent(this, NoteEdit.class);
         i.putExtra(NotesDbAdapter.KEY_ROWID, id);
-        i.putExtra(NotesDbAdapter.KEY_TITLE, c.getString(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_TITLE)));
-        i.putExtra(NotesDbAdapter.KEY_BODY, c.getString(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_BODY)));
+        i.putExtra(NotesDbAdapter.KEY_TITLE, c.getString(
+                c.getColumnIndexOrThrow(NotesDbAdapter.KEY_TITLE)));
+        i.putExtra(NotesDbAdapter.KEY_BODY, c.getString(
+                c.getColumnIndexOrThrow(NotesDbAdapter.KEY_BODY)));
         startActivityForResult(i, ACTIVITY_EDIT);
     }
 
@@ -125,7 +127,6 @@ public class Notepadv2 extends ListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         Bundle extras = intent.getExtras();
-
         switch(requestCode) {
             case ACTIVITY_CREATE:
                 String title = extras.getString(NotesDbAdapter.KEY_TITLE);
@@ -134,15 +135,14 @@ public class Notepadv2 extends ListActivity {
                 fillData();
                 break;
             case ACTIVITY_EDIT:
-                Long mRowId = extras.getLong(NotesDbAdapter.KEY_ROWID);
-                if(mRowId != null) {
+                Long rowId = extras.getLong(NotesDbAdapter.KEY_ROWID);
+                if (rowId != null) {
                     String editTitle = extras.getString(NotesDbAdapter.KEY_TITLE);
                     String editBody = extras.getString(NotesDbAdapter.KEY_BODY);
-                    mDbHelper.updateNote(mRowId, editTitle, editBody);
+                    mDbHelper.updateNote(rowId, editTitle, editBody);
                 }
                 fillData();
                 break;
         }
     }
-
 }
